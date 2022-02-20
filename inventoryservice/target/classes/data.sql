@@ -1,0 +1,1 @@
+INSERT INTO INVENTORY (inventoryId, quantity) values (1000, 994);

@@ -1,0 +1,1 @@
+insert into PRODUCTS (PRODUCTID, PRODUCTNAME, DESCRIPTION, PRICE, PRODUCTTYPE, INVENTORYID) values (1, 'Milo', 'Milo Drink', 16.0, 'Chocolate Powdered Drink', 1000);

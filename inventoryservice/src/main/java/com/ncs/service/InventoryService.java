@@ -28,7 +28,11 @@ public class InventoryService {
 	}
 
 	public Inventory findByInventoryId(Integer inventoryId) {
-		return invRepo.findById(inventoryId).orElseThrow(InventoryIDNotFoundException::new);
+		Inventory found = invRepo.findById(inventoryId).orElseThrow(InventoryIDNotFoundException::new);
+		
+		found.setProduct(prodServ.findByInventoryId(found.getInventoryId()).getBody());
+		
+		return found;
 	}
 
 //	public Inventory findByProductId(Integer productId) {
@@ -38,10 +42,38 @@ public class InventoryService {
 	public Inventory addInventory(Inventory inventory) {
 		return invRepo.saveAndFlush(inventory);
 	}
+	
+	public Inventory updateBuyingPrice(Integer inventoryId, Double buyingPrice) {
+		Inventory inv = invRepo.findById(inventoryId).orElseThrow(InventoryIDNotFoundException::new);
+		inv.setBuyingPrice(buyingPrice);
+		inv.setProduct(prodServ.findByInventoryId(inv.getInventoryId()).getBody());
+		return invRepo.saveAndFlush(inv);
+	}
+	
+	public Inventory updateQuantity(Integer inventoryId, Integer quantity) {
+		Inventory inv = invRepo.findById(inventoryId).orElseThrow(InventoryIDNotFoundException::new);
+		inv.setQuantity(quantity);
+		inv.setProduct(prodServ.findByInventoryId(inv.getInventoryId()).getBody());
+		return invRepo.saveAndFlush(inv);
+	}
+	
+	public Inventory updateAll(Integer inventoryId, Double buyingPrice, Integer quantity) {
+		Inventory inv = invRepo.findById(inventoryId).orElseThrow(InventoryIDNotFoundException::new);
+		inv.setBuyingPrice(buyingPrice);
+		inv.setQuantity(quantity);
+		inv.setProduct(prodServ.findByInventoryId(inv.getInventoryId()).getBody());
+		return invRepo.saveAndFlush(inv);
+	}
 
 	public Inventory updateInventory(Inventory inventory) {
-		findByInventoryId(inventory.getInventoryId());
-		return invRepo.saveAndFlush(inventory);
+		Inventory found = findByInventoryId(inventory.getInventoryId());
+		
+		inventory.setProduct(prodServ.findByInventoryId(inventory.getInventoryId()).getBody());
+		
+		if(found == null)
+			return null;
+		else
+			return invRepo.saveAndFlush(inventory);
 	}
 
 	public boolean deleteInventory(Integer inventoryId) {

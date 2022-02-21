@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.ncs.exception.InventoryIDNotFoundException;
 //import com.ncs.exception.ProductIDNotFoundException;
 import com.ncs.model.Inventory;
 import com.ncs.service.InventoryService;
@@ -39,6 +40,10 @@ public class InventoryController {
 	@GetMapping(value = "/inventory/{inventoryId}")
 	public ResponseEntity<Inventory> findByInventoryId(@PathVariable Integer inventoryId) {
 		logger.info("Find by inventory ID :" + inventoryId);
+		
+		if(invService.findByInventoryId(inventoryId) == null)
+			throw new InventoryIDNotFoundException();
+			
 		return new ResponseEntity<Inventory>(invService.findByInventoryId(inventoryId), HttpStatus.OK);
 	}
 
@@ -70,6 +75,36 @@ public class InventoryController {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/inventoryId")
 				.buildAndExpand(result.getInventoryId()).toUri();
 		return ResponseEntity.created(location).body(inventory);
+	}
+	
+	@PutMapping(value = "/inventory/{inventoryId}/buyingPrice/{buyingPrice}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public ResponseEntity<Inventory> updateBuyingPrice(@PathVariable Integer inventoryId, @PathVariable Double buyingPrice) {
+		Inventory found = invService.updateBuyingPrice(inventoryId, buyingPrice);
+		logger.info("Update BuyingPrice in Inventory :" + found);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/inventoryId")
+				.buildAndExpand(found.getInventoryId()).toUri();
+		return ResponseEntity.created(location).body(found);
+	}
+	
+	@PutMapping(value = "/inventory/{inventoryId}/quantity/{quantity}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public ResponseEntity<Inventory> updateQuantity(@PathVariable Integer inventoryId, @PathVariable Integer quantity) {
+		Inventory found = invService.updateQuantity(inventoryId, quantity);
+		logger.info("Update Quantity in Inventory :" + found);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/inventoryId")
+				.buildAndExpand(found.getInventoryId()).toUri();
+		return ResponseEntity.created(location).body(found);
+	}
+	
+	@PutMapping(value = "/inventory/{inventoryId}/buyingPrice/{buyingPrice}/quantity/{quantity}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public ResponseEntity<Inventory> updateAll(@PathVariable Integer inventoryId, @PathVariable Double buyingPrice, @PathVariable Integer quantity) {
+		Inventory found = invService.updateAll(inventoryId, buyingPrice, quantity);
+		logger.info("Update BuyingPrice and Quantity in Inventory :" + found);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/inventoryId")
+				.buildAndExpand(found.getInventoryId()).toUri();
+		return ResponseEntity.created(location).body(found);
 	}
 	
 	@DeleteMapping(value = "inventory/{inventoryId}")

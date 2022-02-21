@@ -20,6 +20,9 @@ public class Inventory implements Serializable{
 //	@Column(name = "PRODUCTID")
 //	private Integer productId;
 	
+	@Column(name = "BUYINGPRICE")
+	private Double buyingPrice;
+	
 	@Column(name = "QUANTITY")
 	@Min(value = 0, message = "Quantity should not be less than 0")
 	private Integer quantity;
@@ -79,9 +82,18 @@ public class Inventory implements Serializable{
 		this.product = product;
 	}
 
+	public Double getBuyingPrice() {
+		return buyingPrice;
+	}
+
+	public void setBuyingPrice(Double buyingPrice) {
+		this.buyingPrice = buyingPrice;
+	}
+
 	@Override
 	public String toString() {
-		return "Inventory [inventoryId=" + inventoryId + ", quantity=" + quantity + ", product=" + product + "]";
+		return "Inventory [inventoryId=" + inventoryId + ", buyingPrice=" + buyingPrice + ", quantity=" + quantity
+				+ ", product=" + product + "]";
 	}
 
 //	@Override

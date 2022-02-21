@@ -1,1 +1,1 @@
-INSERT INTO INVENTORY (inventoryId, buyingprice, quantity) values (1000, 11.0, 994);
+INSERT INTO INVENTORY (inventoryId, productId, buyingprice, quantity) values (1000, 1, 11.0, 994);

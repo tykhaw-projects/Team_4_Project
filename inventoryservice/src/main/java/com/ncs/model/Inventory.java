@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -15,10 +16,11 @@ public class Inventory implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "INVENTORYID")
+	@GeneratedValue
 	private Integer inventoryId;
 	
-//	@Column(name = "PRODUCTID")
-//	private Integer productId;
+	@Column(name = "PRODUCTID")
+	private Integer productId;
 	
 	@Column(name = "BUYINGPRICE")
 	private Double buyingPrice;
@@ -58,13 +60,13 @@ public class Inventory implements Serializable{
 		this.inventoryId = inventoryId;
 	}
 
-//	public Integer getProductId() {
-//		return productId;
-//	}
-//
-//	public void setProductId(Integer productId) {
-//		this.productId = productId;
-//	}
+	public Integer getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
 
 	public Integer getQuantity() {
 		return quantity;

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ncs.exception.InventoryIDNotFoundException;
+import com.ncs.exception.ProductIDNotFoundException;
 //import com.ncs.exception.ProductIDNotFoundException;
 import com.ncs.model.Inventory;
 import com.ncs.service.InventoryService;
@@ -49,15 +50,15 @@ public class InventoryController {
 		return new ResponseEntity<Inventory>(invService.findByInventoryId(inventoryId), HttpStatus.OK);
 	}
 
-//	@GetMapping(value = "/inventory/product/{productId}")
-//	public ResponseEntity<Inventory> findByProductId(@PathVariable Integer productId) {
-//		Inventory result = invService.findByProductId(productId);
-//		logger.info("Find by product ID :" + productId);
-//		if (result == null)
-//			throw new ProductIDNotFoundException();
-//
-//		return new ResponseEntity<Inventory>(result, HttpStatus.OK);
-//	}
+	@GetMapping(value = "/inventory/product/{productId}")
+	public ResponseEntity<Inventory> findByProductId(@PathVariable Integer productId) {
+		Inventory result = invService.findByProductId(productId);
+		logger.info("Find by product ID :" + productId);
+		if (result == null)
+			throw new ProductIDNotFoundException();
+
+		return new ResponseEntity<Inventory>(result, HttpStatus.OK);
+	}
 
 	@PostMapping(value = "/inventory")
 	@ResponseStatus(code = HttpStatus.CREATED)

@@ -9,7 +9,7 @@ import com.ncs.model.Product;
 public class ProductServiceFallBack implements ProductService {
 
 	@Override
-	public ResponseEntity<Product> findByInventoryId(Integer inventoryId) {
+	public ResponseEntity<Product> findByProductId(Integer productId) {
 		// TODO Auto-generated method stub
 		Product fallback = new Product(0, "Dummy Name", "Dummy Description", 0.0, "Dummy Type", 0);
 		

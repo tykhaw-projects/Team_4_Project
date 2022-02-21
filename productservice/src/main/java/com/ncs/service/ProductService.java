@@ -30,9 +30,9 @@ public class ProductService {
 		return productRepo.findByProductName(productName);
 	}
 	
-	public Product findByInventoryId(Integer inventoryId) {
-		return productRepo.findByInventoryId(inventoryId);
-	}
+//	public Product findByInventoryId(Integer inventoryId) {
+//		return productRepo.findByInventoryId(inventoryId);
+//	}
 	
 	public List<Product> getProducts() {
 		return productRepo.findAll();

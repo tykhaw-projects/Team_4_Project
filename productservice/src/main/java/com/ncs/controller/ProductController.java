@@ -104,11 +104,11 @@ public class ProductController {
 //		return new ResponseEntity<Product>(productServ.findByProductName(productName), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/inventoryid/{inventoryId}")
-	public ResponseEntity<Product> findByInventoryId(@PathVariable Integer inventoryId) {
-		logger.info("Find product by inventoryId: " + inventoryId);
-		return new ResponseEntity<Product>(productServ.findByInventoryId(inventoryId), HttpStatus.OK);
-	}
+//	@GetMapping(value = "/inventoryid/{inventoryId}")
+//	public ResponseEntity<Product> findByInventoryId(@PathVariable Integer inventoryId) {
+//		logger.info("Find product by inventoryId: " + inventoryId);
+//		return new ResponseEntity<Product>(productServ.findByInventoryId(inventoryId), HttpStatus.OK);
+//	}
 	
 	@PostMapping
 	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
@@ -116,8 +116,8 @@ public class ProductController {
 		return new ResponseEntity<Product>(productServ.addProduct(product), HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping
-	public ResponseEntity<?> deleteProduct(@RequestBody Integer productId) {
+	@DeleteMapping("/{productId}")
+	public ResponseEntity<?> deleteProduct(@PathVariable Integer productId) {
 		logger.info("delete by Account id:"+productId);
 		if(productServ.deleteProduct(productId))
 			return  ResponseEntity.noContent().build();

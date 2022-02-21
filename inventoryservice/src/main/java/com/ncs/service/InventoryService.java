@@ -21,7 +21,7 @@ public class InventoryService {
 		List<Inventory> inventory = invRepo.findAll();
 		
 		for (Inventory inv : inventory) {
-			inv.setProduct(prodServ.findByInventoryId(inv.getInventoryId()).getBody());
+			inv.setProduct(prodServ.findByProductId(inv.getProductId()).getBody());
 		}
 		
 		return inventory;
@@ -30,14 +30,14 @@ public class InventoryService {
 	public Inventory findByInventoryId(Integer inventoryId) {
 		Inventory found = invRepo.findById(inventoryId).orElseThrow(InventoryIDNotFoundException::new);
 		
-		found.setProduct(prodServ.findByInventoryId(found.getInventoryId()).getBody());
+		found.setProduct(prodServ.findByProductId(found.getProductId()).getBody());
 		
 		return found;
 	}
 
-//	public Inventory findByProductId(Integer productId) {
-//		return invRepo.findAllByProductId(productId);
-//	}
+	public Inventory findByProductId(Integer productId) {
+		return invRepo.findAllByProductId(productId);
+	}
 
 	public Inventory addInventory(Inventory inventory) {
 		return invRepo.saveAndFlush(inventory);
@@ -46,14 +46,14 @@ public class InventoryService {
 	public Inventory updateBuyingPrice(Integer inventoryId, Double buyingPrice) {
 		Inventory inv = invRepo.findById(inventoryId).orElseThrow(InventoryIDNotFoundException::new);
 		inv.setBuyingPrice(buyingPrice);
-		inv.setProduct(prodServ.findByInventoryId(inv.getInventoryId()).getBody());
+		inv.setProduct(prodServ.findByProductId(inv.getProductId()).getBody());
 		return invRepo.saveAndFlush(inv);
 	}
 	
 	public Inventory updateQuantity(Integer inventoryId, Integer quantity) {
 		Inventory inv = invRepo.findById(inventoryId).orElseThrow(InventoryIDNotFoundException::new);
 		inv.setQuantity(quantity);
-		inv.setProduct(prodServ.findByInventoryId(inv.getInventoryId()).getBody());
+		inv.setProduct(prodServ.findByProductId(inv.getProductId()).getBody());
 		return invRepo.saveAndFlush(inv);
 	}
 	
@@ -61,14 +61,14 @@ public class InventoryService {
 		Inventory inv = invRepo.findById(inventoryId).orElseThrow(InventoryIDNotFoundException::new);
 		inv.setBuyingPrice(buyingPrice);
 		inv.setQuantity(quantity);
-		inv.setProduct(prodServ.findByInventoryId(inv.getInventoryId()).getBody());
+		inv.setProduct(prodServ.findByProductId(inv.getProductId()).getBody());
 		return invRepo.saveAndFlush(inv);
 	}
 
 	public Inventory updateInventory(Inventory inventory) {
 		Inventory found = findByInventoryId(inventory.getInventoryId());
 		
-		inventory.setProduct(prodServ.findByInventoryId(inventory.getInventoryId()).getBody());
+		inventory.setProduct(prodServ.findByProductId(inventory.getProductId()).getBody());
 		
 		if(found == null)
 			return null;

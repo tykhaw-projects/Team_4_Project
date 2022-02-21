@@ -14,8 +14,11 @@ import com.ncs.model.Product;
 @FeignClient(name = "PRODUCT-SERVICE", fallback = ProductServiceFallBack.class)
 public interface ProductService {
 
-	@GetMapping(value = "/products/inventoryid/{inventoryId}")
-	public ResponseEntity<Product>  findByInventoryId(@PathVariable Integer inventoryId);
+//	@GetMapping(value = "/products/inventoryid/{inventoryId}")
+//	public ResponseEntity<Product>  findByInventoryId(@PathVariable Integer inventoryId);
+	
+	@GetMapping(value = "/products/id/{productId}")
+	public ResponseEntity<Product>  findByProductId(@PathVariable Integer productId);
 
 	@PostMapping(value = "/products")
 	public ResponseEntity<Product> addProduct(@RequestBody Product product);
